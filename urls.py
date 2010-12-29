@@ -20,4 +20,5 @@ urlpatterns = patterns('',
     (r'^update/forwarding/$', 'controlpanel.update_profile.forwarding'),
     (r'^update/maxmsgsize/$', 'controlpanel.update_profile.maxmsgsize'),
     (r'^update/vacation/$', 'controlpanel.update_profile.vacation'),
+    (r'siteadmin/$', 'controlpanel.siteadmin.index'),
 )

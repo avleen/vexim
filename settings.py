@@ -98,3 +98,4 @@ INSTALLED_APPS = (
 )
 
 AUTH_PROFILE_MODULE = 'controlpanel.UserProfile'
+TEMPLATE_CONTEXT_PROCESSORS = ('controlpanel.context_processors.get_alphabet.get_alphabet',)
