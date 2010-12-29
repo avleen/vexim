@@ -35,4 +35,4 @@ def password(request):
 
     reply_dict['msg'] = msg
 
-    return render_to_response('controlpanel/index.html', reply_dict)
+    return render_to_response('controlpanel/user_index.html', reply_dict)
