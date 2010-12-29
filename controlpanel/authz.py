@@ -1,6 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from vexim.controlpanel import models
-from vexim.controlpanel import authz
 from vexim.controlpanel import common
 
 def login(request):

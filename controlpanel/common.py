@@ -17,6 +17,6 @@ def get_reply_dict(request):
 def get_quota(username):
     # TODO(avleen): Implement quota checks
     if not username:
-        return 'Unknown'
+        return False
     else:
         return 'foo'

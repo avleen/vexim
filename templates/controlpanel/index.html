@@ -27,8 +27,11 @@
             </tr>
             <tr>
                 <td class="profile_left">Confirm password:</td>
-                <td><input name="password_two" type="password" size="16">
-                <input type="submit" value="Change password"></td>
+                <td><input name="password_two" type="password" size="16"></td>
+            </tr>
+            <tr>
+                <td class="profile_left"></td>
+                <td><input type="submit" value="Change password"></td>
             </tr>
             </tr>
         </form>
@@ -38,10 +41,12 @@
         <tr>
             <td colspan="2"><b><u>Mailbox configuration:</u></b></td>
         </tr>
+        {% if quota %}
         <tr>
             <td class="profile_left">Current mailbox quota:</td>
             <td>{{ quota }}</td>
         </tr>
+        {% endif %}
         <form name="maxmsgsize" method="post" action="/update/maxmsgsize/">
             <tr>
                 <td class="profile_left">Maximum accepted message size (in Kb):</td>
@@ -85,25 +90,75 @@
             <td><b><u>Forwarding settings:</u></b></td>
         </tr>
         <form name="forwarding" method="post" action="/update/forwarding/">
-        <tr>
-            <td class="profile_left">Forwarding enabled:</td>
-            <td><input name="forwarding_enabled" type="checkbox"
-                {% if forwarding_enabled == 1 %}CHECKED{% endif %}></td>
-        </tr>
-        <tr>
-            <td class="profile_left">Store mail locally:</td>
-            <td><input name="forwarding_unseen" type="checkbox"
-                {% if forwarding_unseen == 1 %}CHECKED{% endif %}></td>
-        </tr>
-        <tr>
-            <td class="profile_left">Forward to:</td>
-            <td><input name="forwardto" type="text" size="32"
-                value="{{ forwardto }}"></td>
-        </tr>
-        <tr>
-            <td class="profile_left"></td>
-            <td><input name="submit" type="submit"
-                value="Update forwarding settings"</td>
-        </tr>
+            <tr>
+                <td class="profile_left">Forwarding enabled:</td>
+                <td><input name="forwarding_enabled" type="checkbox"
+                    {% if forwarding_enabled == 1 %}CHECKED{% endif %}></td>
+            </tr>
+            <tr>
+                <td class="profile_left">Store mail locally:</td>
+                <td><input name="forwarding_unseen" type="checkbox"
+                    {% if forwarding_unseen == 1 %}CHECKED{% endif %}></td>
+            </tr>
+            <tr>
+                <td class="profile_left">Forward to:</td>
+                <td><input name="forwardto" type="text" size="42"
+                    value="{{ forwardto }}"></td>
+            </tr>
+            <tr>
+                <td class="profile_left"></td>
+                <td><input name="submit" type="submit"
+                    value="Update forwarding settings"</td>
+            </tr>
+        </form>
+    </table>
+    <p></p>
+    <table>
+        {% if domain_spamassassin_enabled == 1 or domain_antivirus_enabled == 1 %}
+            {% if domain_spamassassin_enabled == 1 and domain_antivirus_enabled == 1 %}
+            <tr>
+                <td><b><u>Spam filtering and anti-virus:</u></b></td>
+            </tr>
+            {% else %}{% if domain_spamassassin_enabled == 1 %}
+            <tr>
+                <td><b><u>Spam filtering:</u></b></td>
+            </tr>
+            {% else %}{% if domain_antivirus_enabled == 1 %}
+            <tr>
+                <td><b><u>Anti-virus:</u></b></td>
+            </tr>
+            {% endif %}{% endif %}{% endif %}
+            <form name="spamandav" method="post" action="/update/spamandav/">
+                {% if domain_antivirus_enabled == 1 %}
+                <tr>
+                    <td class="profile_left">Anti-virus enabled:</td>
+                    <td><input name="antivirus_enabled" type="checkbox"
+                        {% if antivirus_enabled == 1 %}CHECKED{% endif %}></td>
+                </tr>
+                {% endif %}
+                {% if domain_spamassassin_enabled == 1 %}
+                <tr>
+                    <td class="profile_left">Spam filtering enabled:</td>
+                    <td><input name="spamassassin_enabled" type="checkbox"
+                        {% if spamassassin_enabled == 1 %}CHECKED{% endif %}></td>
+                </tr>
+                <tr>
+                    <td class="profile_left">Spam warning level:</td>
+                    <td><input name="sa_tag" type="textbox" size="2"
+                        value="{% firstof sa_tag domain_sa_tag "5" %}"></td>
+                </tr>
+                <tr>
+                    <td class="profile_left">Spam block level:</td>
+                    <td><input name="sa_tag" type="textbox" size="2"
+                        value="{% firstof sa_refuse domain_sa_tag "10" %}"></td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td class="profile_left"></td>
+                    <td><input name="submit" type="submit"
+                        value="Update">
+                        filtering">
+            </form>
+        {% endif %}
     </table>
 {% endblock %}
