@@ -1,0 +1,40 @@
+{% extends "controlpanel/base.html" %}
+
+{% block content %}
+<div id="leftbar">
+    <a href="/logout/">Logout</a>
+</div>
+
+<div id="center">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>{{ realname }}</td>
+        </tr>
+        <tr>
+            <td>Email address:</td>
+            <td>{{ emailaddress }}</td>
+        </tr>
+        <form name="passwordreset" method="post" action="/passwordreset/">
+            <tr>
+                <td>New password:</td>
+                <td><input name="password_one" type="password" size="16"></td>
+            </tr>
+            <tr>
+                <td>Confirm password:</td>
+                <td><input name="password_two" type="password" size="16"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Change password"></td>
+            </tr>
+        </form>
+    </table>
+
+    <table>
+        <tr>
+            <td>Current mailbox quota:</td>
+            <td>{{ quota }}</td>
+        </tr>
+</div>
+{% endblock %}

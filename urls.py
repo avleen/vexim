@@ -6,11 +6,12 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^vexim3/', include('vexim3.foo.urls')),
+    # (r'^vexim/', include('vexim3.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
+    (r'^$', 'controlpanel.views.index')
 )
