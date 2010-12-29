@@ -62,6 +62,9 @@ td.button {
 td.trash {
 	padding-right: 3px;
 }
+td.profile_left {
+        width: 300px;
+}
 
 div.row {
   clear: both;
@@ -121,9 +124,10 @@ body>#Header {height:28px;}
   font-size: 12pt;
   color: #09c;
 }
-#center {
+#centerblock {
 	margin: 0px 50px 50px 250px;
 	padding:10px;
+	border:1px dashed #333;
 	overflow: auto;
 	}
 
