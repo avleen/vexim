@@ -11,10 +11,23 @@
     <body>
         {% block header %}
         <div id="header">
-            <p>Virtual Exim {% if domainname %}-- {{ domainname }}{% endif %}</p>
+            <p>
+            <a href="http://silverwraith.com/vexim/">Virtual Exim</a>
+            {% if domainname %} -- {{ domainname }}{% endif %}
+            {% if msg %} -- <span class="{{ msgclass }}">{{ msg }}</span>{% endif %}
+            </p>
         </div>
         {% endblock %}
-        {% block content %}
+
+        {% block leftbar %}
+        <div id="leftbar">
+            <a href="/logout/">Logout</a>
+        </div>
         {% endblock %}
+
+        <div id="centerblock">
+        {% block centerblock %}
+        {% endblock %}
+        </div>
     </body>
 </html>

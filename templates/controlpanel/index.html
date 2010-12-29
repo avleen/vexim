@@ -1,40 +1,109 @@
 {% extends "controlpanel/base.html" %}
 
-{% block content %}
-<div id="leftbar">
-    <a href="/logout/">Logout</a>
-</div>
-
-<div id="center">
+{% block centerblock %}
     <table>
         <tr>
-            <td>Name:</td>
+            <td colspan="2"><b><u>Personal details:</u></b></td>
+        </tr>
+
+        <tr>
+            <td class="profile_left">Name:</td>
             <td>{{ realname }}</td>
         </tr>
         <tr>
-            <td>Email address:</td>
+            <td class="profile_left">Email address:</td>
             <td>{{ emailaddress }}</td>
         </tr>
-        <form name="passwordreset" method="post" action="/passwordreset/">
+    </table>
+    <p></p>
+    <table>
+        <tr>
+            <td colspan="2"><b><u>Password change:</u></b></td>
+        </tr>
+        <form name="passwordreset" method="post" action="/update/password/">
             <tr>
-                <td>New password:</td>
+                <td class="profile_left">New password:</td>
                 <td><input name="password_one" type="password" size="16"></td>
             </tr>
             <tr>
-                <td>Confirm password:</td>
-                <td><input name="password_two" type="password" size="16"></td>
+                <td class="profile_left">Confirm password:</td>
+                <td><input name="password_two" type="password" size="16">
+                <input type="submit" value="Change password"></td>
             </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Change password"></td>
             </tr>
         </form>
     </table>
-
+    <p></p>
     <table>
         <tr>
-            <td>Current mailbox quota:</td>
+            <td colspan="2"><b><u>Mailbox configuration:</u></b></td>
+        </tr>
+        <tr>
+            <td class="profile_left">Current mailbox quota:</td>
             <td>{{ quota }}</td>
         </tr>
-</div>
+        <form name="maxmsgsize" method="post" action="/update/maxmsgsize/">
+            <tr>
+                <td class="profile_left">Maximum accepted message size (in Kb):</td>
+                <td><input name="maxmsgsize" type="text" size="16"
+                    value="{{ maxmsgsize }}"></td>
+            </tr>
+            <tr>
+                <td class="profile_left"></td>
+                <td><input name="submit" type="submit"
+                    value="Update maximum message size">
+                </td>
+            </tr>
+        </form>
+    </table>
+    <p></p>
+    <table>
+        <tr>
+            <td><b><u>Vacation settings:</u></b></td>
+        </tr>
+        <form name="vacation" method="post" action="/update/vacation/">
+            <tr>
+                <td class="profile_left">Vacation message enabled:</td>
+                <td><input name="vacation_enabled" type="checkbox"
+                    {% if vacation_enabled == 1 %}CHECKED{% endif %}></td>
+            </tr>
+            <tr>
+                <td class="profile_left"></td>
+                <td colspan="2"><textarea name="vaationmessage" cols="30"
+                        rows="5" value="{{ vacationmessage }}"></textarea></td>
+            </tr>
+            <tr>
+                <td class="profile_left"></td>
+                <td><input name="submit" type="submit"
+                    value="Update vacation settings"</td>
+            </tr>
+        </form>
+    </table>
+    <p></p>
+    <table>
+        <tr>
+            <td><b><u>Forwarding settings:</u></b></td>
+        </tr>
+        <form name="forwarding" method="post" action="/update/forwarding/">
+        <tr>
+            <td class="profile_left">Forwarding enabled:</td>
+            <td><input name="forwarding_enabled" type="checkbox"
+                {% if forwarding_enabled == 1 %}CHECKED{% endif %}></td>
+        </tr>
+        <tr>
+            <td class="profile_left">Store mail locally:</td>
+            <td><input name="forwarding_unseen" type="checkbox"
+                {% if forwarding_unseen == 1 %}CHECKED{% endif %}></td>
+        </tr>
+        <tr>
+            <td class="profile_left">Forward to:</td>
+            <td><input name="forwardto" type="text" size="32"
+                value="{{ forwardto }}"></td>
+        </tr>
+        <tr>
+            <td class="profile_left"></td>
+            <td><input name="submit" type="submit"
+                value="Update forwarding settings"</td>
+        </tr>
+    </table>
 {% endblock %}

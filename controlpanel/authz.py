@@ -1,3 +1,8 @@
+from django.shortcuts import render_to_response
+from vexim.controlpanel import models
+from vexim.controlpanel import authz
+from vexim.controlpanel import common
+
 def login(request):
     m = User.objects.get(username=request.POST['username'])
     if m.password == request.POST['password']:

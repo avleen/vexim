@@ -13,5 +13,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
-    (r'^$', 'controlpanel.views.index')
+    (r'^$', 'controlpanel.views.index'),
+    (r'^/login/$', 'controlpanel.authz.login'),
+    (r'^/update/password/$', 'controlpanel.update_profile.password'),
+    (r'^/update/forwarding/$', 'controlpanel.update_profile.forwarding'),
+    (r'^/update/maxmsgsize/$', 'controlpanel.update_profile.maxmsgsize'),
+    (r'^/update/vacation/$', 'controlpanel.update_profile.vacation'),
 )
