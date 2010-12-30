@@ -1,0 +1,90 @@
+{% extends "controlpanel/base.html" %}
+
+{% block jquery %}
+$('input[name=localdomain]').keyup(function() {
+    $('span[name=domainname_span]').text($(this).val());
+});
+{% endblock %}
+
+{% block leftbar %}
+<a href="/siteadmin/">Site admin home</a><br><br>
+{% include "controlpanel/siteadmin_leftbar.html" %}
+{% endblock %}
+
+{% block centerblock %}
+<table>
+    <form name="addlocaldomain" method="post" action="/siteadmin/addlocal/">
+        {% csrf_token %}
+        <tr>
+            <td>New domain name:</td>
+            <td><input name="localdomain" type="text" size="24"
+                value="{{ localdomain }}"></td>
+        </tr>
+        <tr>
+            <td class="profile_left">Domain admin account:</td>
+            <td>postmaster@<span name="domainname_span">example.com</span></td>
+        </tr>
+        <tr>
+            <td>Domain admin password:</td>
+            <td><input name="password_one" type="password" size="24"></td>
+        </tr>
+        <tr>
+            <td>Confirm password:</td>
+            <td><input name="password_two" type="password" size="24"></td>
+        </tr>
+        <tr>
+            <td>System UID:</td>
+            <td><input name="uid" type="text" size="5"
+                value="{{ uid|default:settings.uid }}"></td>
+        </tr>
+        <tr>
+            <td>System GID:</td>
+            <td><input name="gid" type="text" size="5"
+                value="{{ gid|default:settings.gid }}"></td>
+        </tr>
+        <tr>
+            <td>Domain mail location:</td>
+            <td>{{ settings.mailhome }}/<span name="domainname_span"></span></td>
+        </tr>
+        <tr>
+            <td>Maximum accounts<br>(0 for unlimited):</td>
+            <td><input name="maxaccounts" type="text" size="5"
+                value="{{ maxaccounts|default:"0" }}"></td>
+        </tr>
+        <tr>
+            <td>Enable piping mail to system commands:</td>
+            <td><input name="piping_enabled" type="checkbox"
+                {% if piping_enabled %}CHECKED{% endif %}></td>
+        </tr>
+        <tr>
+            <td>Anti-virus enabled:</td>
+            <td><input name="antivirus_enabled" type="checkbox"
+                {% if antivirus_enabled %}CHECKED{% endif %}></td>
+        </tr>
+        <tr>
+            <td>Spam filtering enabled:</td>
+            <td><input name="spamassassin_enabled" type="checkbox"
+                {% if spamassassin_enabled %}CHECKED{% endif %}></td>
+        </tr>
+        <tr>
+            <td>Default spam tag score:</td>
+            <td><input name="sa_tag" type="text" size="5"
+                value="{% firstof sa_tag settings_sa_tag %}"></td>
+            <td>Spam score level at which<br>
+                "[SPAM]" is added to the subject</td>
+        </tr>
+        <tr>
+            <td>Default spam refuse score:</td>
+            <td><input name="sa_refuse" type="text" size="5"
+                value="{% firstof sa_refuse settings_sa_refuse %}"></td>
+            <td>Spam score level at which<br>
+                mail is rejected before delivery</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input name="submit" type="submit" 
+                 value="Add domain"></td>
+        </tr>
+    </form>
+</table>
+{% endblock %}

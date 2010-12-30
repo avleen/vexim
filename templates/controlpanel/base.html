@@ -7,6 +7,15 @@
         <style type="text/css">
             {% include "controlpanel/style.css" %}
         </style>
+        <script type="text/javascript" src="http://www.google.com/jsapi">
+        </script>
+        <script type="text/javascript">
+            google.load("jquery", "1.4.4");
+            google.setOnLoadCallback(function() {
+                {% block jquery %}
+                {% endblock %}
+            });
+        </script>
     </head>
     <body>
         {% block header %}

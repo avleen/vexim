@@ -1,0 +1,23 @@
+{% extends "controlpanel/base.html" %}
+
+{% block leftbar %}
+<a href="/siteadmin/">Site admin home</a><br><br>
+{% include "controlpanel/siteadmin_leftbar.html" %}
+{% endblock %}
+
+{% block centerblock %}
+<table>
+    <form name="addrelaydomain" method="post" action="/siteadmin/addrelay/">
+        {% csrf_token %}
+        <tr>
+            <td>New domain name:</td>
+            <td><input name="relaydomain" type="text" size="32"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input name="submit" type="submit" 
+                 value="Add relay domain"></td>
+        </tr>
+    </form>
+</table>
+{% endblock %}

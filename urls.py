@@ -23,6 +23,6 @@ urlpatterns = patterns('',
     (r'siteadmin/$', 'controlpanel.siteadmin.index'),
     (r'siteadmin/domains/(?P<domain_letter>\w)/$', 'controlpanel.siteadmin.index'),
     (r'siteadmin/addalias/$', 'controlpanel.siteadmin.addalias'),
-    (r'siteadmin/addlocal/$', 'controlpanel.siteadmin.addalias'),
-    (r'siteadmin/addrelay/$', 'controlpanel.siteadmin.addalias'),
+    (r'siteadmin/addlocal/$', 'controlpanel.siteadmin.addlocal'),
+    (r'siteadmin/addrelay/$', 'controlpanel.siteadmin.addrelay'),
 )

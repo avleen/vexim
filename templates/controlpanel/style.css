@@ -50,6 +50,10 @@ table,tr,td,th {
 	text-align: left;
 }
 
+td {
+    vertical-align: top;
+}
+
 td.check {
 	text-align: center;
 }
