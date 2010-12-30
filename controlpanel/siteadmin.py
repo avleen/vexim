@@ -69,12 +69,15 @@ def addrelay(request):
             msg = 'Domain %s is already present in the system' % aliasdomain
         else:
             try:
-                # TODO(avleen): Create the relay domain
+                d = Domain(domain=request.POST['relaydomain'],
+                           type='relay',
+                           enabled=True)
+                d.save()
                 msgclass = 'ok'
                 msg = 'Relay domain %s created' % relaydomain
             except:
                 msgclass = 'error'
-                msg = 'Error: Unable to create relay domain'
+                msg = 'Error: Unable to create relay domain:' % sys.exc_info()[1]
         reply_dict['relaydomain'] = relaydomain
         reply_dict['msg'] = msg
         reply_dict['msgclass'] = msgclass
@@ -117,6 +120,10 @@ def addlocal(request):
         else:
             try:
                 # TODO(avleen): Create the local domain
+                d = Domain(domain=request.POST['relaydomain'],
+                           type='relay',
+                           enabled=True)
+                d.save()
                 msg = 'Domain %s added' % request.POST['localdomain']
                 msgclass = 'ok'
             except:

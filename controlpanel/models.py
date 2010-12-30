@@ -10,7 +10,7 @@ class Domain(models.Model):
         ('local', 'Local')
     )
     domain = models.CharField(max_length=128)
-    maildir = models.TextField()
+    maildir = models.TextField(default=settings.VEXIM_MAILHOME)
     uid = models.IntegerField(default=settings.VEXIM_UID)
     gid = models.IntegerField(default=settings.VEXIM_GID)
     max_accounts = models.IntegerField(default=0)
