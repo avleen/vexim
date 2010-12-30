@@ -11,7 +11,8 @@
         {% csrf_token %}
         <tr>
             <td>New domain name:</td>
-            <td><input name="relaydomain" type="text" size="32"></td>
+            <td><input name="relaydomain" type="text" size="32"
+                value="{{ relaydomain }}"></td>
         </tr>
         <tr>
             <td></td>

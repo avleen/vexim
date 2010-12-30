@@ -23,23 +23,28 @@ def addalias(request):
         # TODO(avleen): Return the login page
         return render_to_response('controlpanel/login.html')
 
-    # Make sure aliasdomain doesn't exist in the domains table at the moment. If
-    # it does, push back to the addalias page. Don't forget to pre-fill the form
-    # on the page!
     if request.POST.has_key('aliasdomain'):
         aliasdomain = request.POST['aliasdomain']
         targetdomain = request.POST['targetdomain']
-        try:
-            # TODO(avleen): Create the alias domain
-            msgclass = 'ok'
-            msg = 'Alias domain %s directed to %s' % (aliasdomain, targetdomain)
-        except:
+        if Domain.objects.filter(domain=aliasdomain):
             msgclass = 'error'
-            msg = 'Error: Unable to create alias domain'
+            msg = 'Domain %s is already present in the system' % aliasdomain
+        else:
+            try:
+                # TODO(avleen): Create the alias domain
+                msgclass = 'ok'
+                msg = 'Alias domain %s directed to %s' % (aliasdomain, targetdomain)
+            except:
+                msgclass = 'error'
+                msg = 'Error: Unable to create alias domain'
+        reply_dict['aliasdomain'] = aliasdomain
+        reply_dict['targetdomain'] = targetdomain
         reply_dict['msg'] = msg
         reply_dict['msgclass'] = msgclass
-        return render_to_response('controlpanel/siteadmin_index.html',
-                reply_dict, context_instance=RequestContext(request))
+
+        if msgclass == 'ok':
+            return render_to_response('controlpanel/siteadmin_index.html',
+                    reply_dict, context_instance=RequestContext(request))
 
     return render_to_response('controlpanel/siteadmin_addalias.html',
             reply_dict, context_instance=RequestContext(request))
@@ -53,13 +58,18 @@ def addrelay(request):
 
     if request.POST.has_key('relaydomain'):
         relaydomain = request.POST['relaydomain']
-        try:
-            # TODO(avleen): Create the relay domain
-            msgclass = 'ok'
-            msg = 'Relay domain %s created' % relaydomain
-        except:
+        if Domain.objects.filter(domain=relaydomain):
             msgclass = 'error'
-            msg = 'Error: Unable to create relay domain'
+            msg = 'Domain %s is already present in the system' % aliasdomain
+        else:
+            try:
+                # TODO(avleen): Create the relay domain
+                msgclass = 'ok'
+                msg = 'Relay domain %s created' % relaydomain
+            except:
+                msgclass = 'error'
+                msg = 'Error: Unable to create relay domain'
+        reply_dict['relaydomain'] = relaydomain
         reply_dict['msg'] = msg
         reply_dict['msgclass'] = msgclass
         return render_to_response('controlpanel/siteadmin_index.html',

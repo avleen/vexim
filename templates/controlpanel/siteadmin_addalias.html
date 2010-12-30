@@ -11,11 +11,13 @@
         {% csrf_token %}
         <tr>
             <td>New domain name:</td>
-            <td><input name="aliasdomain" type="text" size="32"></td>
+            <td><input name="aliasdomain" type="text" size="32"
+                value="{{ aliasdomain }}"></td>
         </tr>
         <tr>
             <td>Redirect messages to domain:</td>
-            <td><input name="targetdomain" type="text" size="32"></td>
+            <td><input name="targetdomain" type="text" size="32"
+                value="{{ targetdomain }}"></td>
         </tr>
         <tr>
             <td></td>
