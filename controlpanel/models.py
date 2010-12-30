@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Domain(models.Model):
@@ -10,21 +11,21 @@ class Domain(models.Model):
     )
     domain = models.CharField(max_length=128)
     maildir = models.TextField()
-    uid = models.IntegerField()
-    gid = models.IntegerField()
-    max_accounts = models.IntegerField()
+    uid = models.IntegerField(default=settings.VEXIM_UID)
+    gid = models.IntegerField(default=settings.VEXIM_GID)
+    max_accounts = models.IntegerField(default=0)
     type = models.CharField(max_length=5, choices=DOMAIN_TYPES)
-    avscan = models.BooleanField()
-    blocklists = models.BooleanField()
-    complexpass = models.BooleanField()
-    enabled = models.BooleanField()
-    mailinglists = models.BooleanField()
-    maxmsgsize = models.IntegerField()
-    pipe = models.BooleanField()
-    spamassassin = models.BooleanField()
-    sa_tag = models.IntegerField()
-    sa_refuse = models.IntegerField()
-    tagline = models.TextField()
+    avscan = models.BooleanField(default=True)
+    blocklists = models.BooleanField(default=True)
+    complexpass = models.BooleanField(default=True)
+    enabled = models.BooleanField(default=True)
+    mailinglists = models.BooleanField(default=True)
+    maxmsgsize = models.IntegerField(default=settings.VEXIM_MAXMSGSIZE)
+    pipe = models.BooleanField(default=True)
+    spamassassin = models.BooleanField(default=True)
+    sa_tag = models.IntegerField(default=settings.VEXIM_SA_TAG)
+    sa_refuse = models.IntegerField(default=settings.VEXIM_SA_REFUSE)
+    tagline = models.TextField(blank=True)
 
 class UserProfile(models.Model):
     USER_TYPES = (

@@ -102,5 +102,6 @@ TEMPLATE_CONTEXT_PROCESSORS = ('controlpanel.context_processors.get_alphabet.get
 VEXIM_UID = 65534
 VEXIM_GID = 65534
 VEXIM_MAILHOME = '/usr/local/mail'
+VEXIM_MAXMSGSIZE = 0
 VEXIM_SA_TAG = 5
 VEXIM_SA_REFUSE = 10

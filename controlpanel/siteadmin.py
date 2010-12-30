@@ -4,6 +4,8 @@ from vexim.controlpanel import authz
 from vexim.controlpanel import common
 from vexim.controlpanel.models import Domain
 
+import sys
+
 
 def index(request, domain_letter=None):
     reply_dict = common.get_reply_dict(request)
@@ -31,12 +33,16 @@ def addalias(request):
             msg = 'Domain %s is already present in the system' % aliasdomain
         else:
             try:
-                # TODO(avleen): Create the alias domain
+                d = Domain(domain=request.POST['aliasdomain'],
+                           maildir=request.POST['targetdomain'],
+                           type='alias',
+                           enabled=True)
+                d.save()
                 msgclass = 'ok'
                 msg = 'Alias domain %s directed to %s' % (aliasdomain, targetdomain)
             except:
                 msgclass = 'error'
-                msg = 'Error: Unable to create alias domain'
+                msg = 'Error: Unable to create alias domain: %s' % sys.exc_info()[1]
         reply_dict['aliasdomain'] = aliasdomain
         reply_dict['targetdomain'] = targetdomain
         reply_dict['msg'] = msg
