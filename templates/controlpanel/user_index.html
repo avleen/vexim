@@ -25,6 +25,7 @@
             <td colspan="2"><b><u>Password change:</u></b></td>
         </tr>
         <form name="passwordreset" method="post" action="/update/password/">
+            {% csrf_token %}
             <tr>
                 <td class="profile_left">New password:</td>
                 <td><input name="password_one" type="password" size="16"></td>
@@ -71,6 +72,7 @@
             <td><b><u>Vacation settings:</u></b></td>
         </tr>
         <form name="vacation" method="post" action="/update/vacation/">
+            {% csrf_token %}
             <tr>
                 <td class="profile_left">Vacation message enabled:</td>
                 <td><input name="vacation_enabled" type="checkbox"
@@ -94,6 +96,7 @@
             <td><b><u>Forwarding settings:</u></b></td>
         </tr>
         <form name="forwarding" method="post" action="/update/forwarding/">
+            {% csrf_token %}
             <tr>
                 <td class="profile_left">Forwarding enabled:</td>
                 <td><input name="forwarding_enabled" type="checkbox"
@@ -133,6 +136,7 @@
             </tr>
             {% endif %}{% endif %}{% endif %}
             <form name="spamandav" method="post" action="/update/spamandav/">
+                {% csrf_token %}
                 {% if domain_antivirus_enabled == 1 %}
                 <tr>
                     <td class="profile_left">Anti-virus enabled:</td>
