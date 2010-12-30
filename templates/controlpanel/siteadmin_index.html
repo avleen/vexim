@@ -1,16 +1,10 @@
 {% extends "controlpanel/base.html" %}
-{% load get_alphabet %}
 
 {% block leftbar %}
 {% include "controlpanel/siteadmin_leftbar.html" %}
 {% endblock %}
 
 {% block centerblock %}
-
-
-<a href="/siteadmin/">ALL</a>&nbsp;&nbsp;
-{% for letter in get_alphabet %}
-<a href="/siteadmin/domains/{{ letter }}/">{{ letter }}</a>
-{% endfor %}
+{% include "controlpanel/siteadmin_domainbar.html" %}
 
 {% endblock %}

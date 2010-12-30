@@ -25,14 +25,19 @@ def password(request):
     password_two = request.POST['password_two']
     if len(password_one) > 0 and (password_one == password_two):
         # TODO(avleen): Reset the password in the db
+        msgclass = 'ok'
         msg = "Your password has been updated."
     elif len(password_one) == 0:
+        msgclass = 'error'
         msg = "Passwords cannot be blank."
     elif password_one != password_two:
+        msgclass = 'error'
         msg = "Passwords do not match."
     else:
+        msgclass = 'error'
         msg = "Unknown error."
 
+    reply_dict['msgclass'] = msgclass
     reply_dict['msg'] = msg
 
     return render_to_response('controlpanel/user_index.html', reply_dict)

@@ -1,0 +1,4 @@
+<a href="/siteadmin/">ALL</a>&nbsp;&nbsp;
+{% for letter in get_alphabet %}
+<a href="/siteadmin/domains/{{ letter }}/">{{ letter }}</a>
+{% endfor %}

@@ -1,0 +1,27 @@
+{% extends "controlpanel/base.html" %}
+
+{% block leftbar %}
+<a href="/siteadmin/">Site admin home</a><br><br>
+{% include "controlpanel/siteadmin_leftbar.html" %}
+{% endblock %}
+
+{% block centerblock %}
+<table>
+    <form name="addaliasdomain" method="post" action="/siteadmin/addalias/">
+        {% csrf_token %}
+        <tr>
+            <td>New domain name:</td>
+            <td><input name="aliasdomain" type="text" size="32"></td>
+        </tr>
+        <tr>
+            <td>Redirect messages to domain:</td>
+            <td><input name="targetdomain" type="text" size="32"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input name="submit" type="submit" 
+                 value="Add alias domain"></td>
+        </tr>
+    </form>
+</table>
+{% endblock %}
