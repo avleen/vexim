@@ -69,6 +69,9 @@ td.trash {
 td.profile_left {
         width: 200px;
 }
+td.profile_left_wide {
+        width: 250px;
+}
 
 div.row {
   clear: both;
