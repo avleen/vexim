@@ -6,7 +6,8 @@
 
 {% block centerblock %}
     <table align="center">
-        <form name="login" method="post" action="/login/">
+        <form name="login" method="post" action="/accounts/login/">
+            {% csrf_token %}
             <tr>
                 <td class="profile_left_wide">Usernaname or E-mail address:</td>
                 <td><input name="username" type="text" size="32"></td>

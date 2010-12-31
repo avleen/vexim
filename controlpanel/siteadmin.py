@@ -1,5 +1,7 @@
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import redirect, render_to_response
 from vexim.controlpanel import authz
 from vexim.controlpanel import common
 from vexim.controlpanel.models import Domain
@@ -8,22 +10,28 @@ import sys
 
 
 def index(request, domain_letter=None):
-    reply_dict = common.get_reply_dict(request)
-    if not authz.check_auth(request):
-        # TODO(avleen): Return the login page
-        return render_to_response('controlpanel/login.html')
+    print request.user.is_authenticated()
+    if not request.user.is_authenticated():
+        return redirect('/accounts/login/')
+    # If the current user isn't the siteadmin, redirect them away
+    if request.user.username != settings.VEXIM_ADMIN_USER:
+        print request.user.username
+        return redirect('/accounts/login/')
 
+    reply_dict = common.get_reply_dict(request)
     domains = Domain.objects.all()
 
     return render_to_response('controlpanel/siteadmin_index.html', reply_dict,
                               context_instance=RequestContext(request))
 
 
+@login_required
 def addalias(request):
+    # If the current user isn't the siteadmin, redirect them away
+    if request.user.username != settings.VEXIM_ADMIN_USER:
+        return redirect('/accounts/login/')
+
     reply_dict = common.get_reply_dict(request)
-    if not authz.check_auth(request):
-        # TODO(avleen): Return the login page
-        return render_to_response('controlpanel/login.html')
 
     if request.POST.has_key('aliasdomain'):
         aliasdomain = request.POST['aliasdomain']
@@ -56,11 +64,13 @@ def addalias(request):
             reply_dict, context_instance=RequestContext(request))
 
 
+@login_required
 def addrelay(request):
+    # If the current user isn't the siteadmin, redirect them away
+    if request.user.username != settings.VEXIM_ADMIN_USER:
+        return redirect('/accounts/login/')
+
     reply_dict = common.get_reply_dict(request)
-    if not authz.check_auth(request):
-        # TODO(avleen): Return the login page
-        return render_to_response('controlpanel/login.html')
 
     if request.POST.has_key('relaydomain'):
         relaydomain = request.POST['relaydomain']
@@ -88,11 +98,13 @@ def addrelay(request):
             reply_dict, context_instance=RequestContext(request))
 
 
+@login_required
 def addlocal(request):
+    # If the current user isn't the siteadmin, redirect them away
+    if request.user.username != settings.VEXIM_ADMIN_USER:
+        return redirect('/accounts/login/')
+
     reply_dict = common.get_reply_dict(request)
-    if not authz.check_auth(request):
-        # TODO(avleen): Return the login page
-        return render_to_response('controlpanel/login.html')
 
     if request.POST.has_key('localdomain'):
         if len(request.POST['localdomain']) == 0:

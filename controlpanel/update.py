@@ -11,10 +11,6 @@ def maxmsgsize(request):
     # TODO(avleen): Update maxmsgsize
     return
 
-def maxmsgsize(request):
-    # TODO(avleen): Update vacation
-    return
-
 def password(request):
     reply_dict = common.get_reply_dict(request)
     if not authz.check_auth(request):
@@ -41,3 +37,7 @@ def password(request):
     reply_dict['msg'] = msg
 
     return render_to_response('controlpanel/user_index.html', reply_dict)
+
+def vacation(request):
+    # TODO(avleen): Update vacation
+    return

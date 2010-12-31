@@ -13,4 +13,3 @@ def index(request):
     # TODO(avleen): If the users is a siteadmin, return the siteadmin page.
     # TODO(avleen): If the users is a domainadmin, return the domainadmin page.
     return render_to_response('controlpanel/user_index.html', reply_dict)
-
