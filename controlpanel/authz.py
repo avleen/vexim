@@ -33,7 +33,7 @@ class VeximAuth:
 
     def get_user(self, user_id):
         try:
-            return User.objects.get(email=user_id)
+            return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
 
@@ -62,18 +62,17 @@ def login(request):
             raise Http404
 
     # This block is executed for logged in users
-    if user.has_perm('controlpanel.monkeyarse'):
-        print request.user.is_authenticated()
+    if request.user.has_perm('controlpanel.siteadmin'):
+        # The superuser you created when you ran 'python manage.py syncdb' will
+        # always be directed to the site admin page. Superusers have ALL
+        # permissions, so they match this block first.
         return redirect('/siteadmin/')
-    elif user.has_perm('domainadmin'):
+    elif request.user.has_perm('domainadmin'):
         return redirect('/domainadmin/')
     else:
         return redirect('/user/')
 
 
 def logout(request):
-    try:
-        del request.session['member_id']
-    except KeyError:
-        pass
+    auth.logout(request)
     return HttpResponse("You're logged out.")

@@ -9,13 +9,13 @@ from vexim.controlpanel.models import Domain
 import sys
 
 
+@login_required
 def index(request, domain_letter=None):
-    print request.user.is_authenticated()
+    #import pdb; pdb.set_trace()
     if not request.user.is_authenticated():
         return redirect('/accounts/login/')
     # If the current user isn't the siteadmin, redirect them away
     if request.user.username != settings.VEXIM_ADMIN_USER:
-        print request.user.username
         return redirect('/accounts/login/')
 
     reply_dict = common.get_reply_dict(request)
