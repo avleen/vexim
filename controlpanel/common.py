@@ -1,6 +1,15 @@
-def get_reply_dict(request):
-    from django.conf import settings
+from django.conf import settings
+from vexim.controlpanel.models import Domain
 
+def check_domain_exists(domain):
+    d = Domain.objects.filter(domain=domain)
+    if d.count() > 0:
+        return True
+    else:
+        return False
+
+
+def get_reply_dict(request):
     realname = None
     emailaddress = None
     username = None
@@ -21,6 +30,7 @@ def get_reply_dict(request):
          'quota': quota,
          'settings': settings_dict}
     return d
+
 
 def get_quota(username):
     # TODO(avleen): Implement quota checks

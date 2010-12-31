@@ -7,4 +7,67 @@
 {% block centerblock %}
 {% include "controlpanel/siteadmin_domainbar.html" %}
 
+<p>
+<form name="search" method="post" action="/siteadmin/search/">
+    <input name="search" type="text" size="32">
+    <input name="submit" type="submit" value="Search">
+</form>
+</p>
+
+{% if local_domains %}
+<table>
+    <tr>
+        <th>Local domains</th>
+        <th>Domain admins</th>
+        <th>Total admins</th>
+    </tr>
+    <tr>
+        {% for domain in local_domains %}
+        <td><a href="/siteadmin/delete/{{ domain.id }}/">
+                <img src="/media/trash.gif" alt="Delete"></a></td>
+        <td>{{ domain.domain }}</td>
+        {% endfor %}
+    </tr>
+</table>
+{% endif %}
+
+<p></p>
+
+{% if alias_domains %}
+<table>
+    <tr>
+        <th></th>
+        <th>Alias domain</th>
+        <th></th>
+        <th>Target domain</th>
+    </tr>
+    {% for domain in alias_domains %}
+    <tr>
+        <td><a href="/siteadmin/delete/{{ domain.id }}/">
+                <img src="/media/trash.gif" alt="Delete"></a></td>
+        <td>{{ domain.domain }}</td>
+        <td>-&gt;</td>
+        <td>{{ domain.maildir }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<p></p>
+
+{% if relay_domains %}
+<table>
+    <tr>
+        <th>Relay domains</th>
+    </tr>
+    {% for domain in relay_domains %}
+    <tr>
+        <td><a href="/siteadmin/delete/{{ domain.id }}/">
+                <img src="/media/trash.gif" alt="Delete"></a></td>
+        <td>{{ domain.domain }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
 {% endblock %}

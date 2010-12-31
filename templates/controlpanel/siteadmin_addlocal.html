@@ -48,8 +48,8 @@ $('input[name=localdomain]').keyup(function() {
         </tr>
         <tr>
             <td>Maximum accounts<br>(0 for unlimited):</td>
-            <td><input name="maxaccounts" type="text" size="5"
-                value="{{ maxaccounts|default:"0" }}"></td>
+            <td><input name="max_accounts" type="text" size="5"
+                value="{{ max_accounts|default:"0" }}"></td>
         </tr>
         <tr>
             <td>Enable piping mail to system commands:</td>
@@ -69,17 +69,20 @@ $('input[name=localdomain]').keyup(function() {
         <tr>
             <td>Default spam tag score:</td>
             <td><input name="sa_tag" type="text" size="5"
-                value="{% firstof sa_tag settings_sa_tag %}"></td>
-            <td>Spam score level at which<br>
+                value="{% firstof sa_tag settings.sa_tag %}">
+                Spam score level at which<br>
                 "[SPAM]" is added to the subject</td>
         </tr>
         <tr>
             <td>Default spam refuse score:</td>
             <td><input name="sa_refuse" type="text" size="5"
-                value="{% firstof sa_refuse settings_sa_refuse %}"></td>
-            <td>Spam score level at which<br>
+                value="{% firstof sa_refuse settings.sa_refuse %}">
+                Spam score level at which<br>
                 mail is rejected before delivery</td>
         </tr>
+        <tr>
+            <td>Domain email signature:</td>
+            <td><textarea name="tagline" rows="5" cols="40">{{ tagline }}</textarea></td>
         <tr>
             <td></td>
             <td><input name="submit" type="submit" 

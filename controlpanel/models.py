@@ -30,6 +30,7 @@ class Domain(models.Model):
 class UserProfile(models.Model):
     USER_TYPES = (
         ('local', 'Local user'),
+        ('admin', 'Domain admin'),
         ('alias', 'Alias'),
         ('catchall', 'Catchall'),
         ('fail', 'Blackholed address'),
@@ -38,19 +39,18 @@ class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     domain = models.ForeignKey(Domain)
     localpart = models.CharField(max_length=192)
-    uid = models.IntegerField()
-    gid = models.IntegerField()
+    uid = models.IntegerField(default=settings.VEXIM_UID)
+    gid = models.IntegerField(default=settings.VEXIM_GID)
     maildir = models.CharField(max_length=255)
-    pipe_cmd = models.TextField()
+    pipe_cmd = models.TextField(blank=True)
     type = models.CharField(max_length=8, choices=USER_TYPES)
-    antivirus_enabled = models.BooleanField()
-    forwarding_enabled = models.BooleanField()
-    forward_unseen = models.BooleanField()
-    forward_address = models.TextField()
-    spamassassin_enabled = models.BooleanField()
-    vacation_enabled = models.BooleanField()
-    vacation_message = models.TextField()
-    maxmsgsize = models.IntegerField()
-    sa_tag = models.IntegerField()
-    sa_refuse = models.IntegerField()
-    tagline = models.TextField()
+    antivirus_enabled = models.BooleanField(default=True)
+    forwarding_enabled = models.BooleanField(default=False)
+    forward_unseen = models.BooleanField(default=False)
+    forward_address = models.TextField(blank=True)
+    spamassassin_enabled = models.BooleanField(default=True)
+    vacation_enabled = models.BooleanField(default=False)
+    vacation_message = models.TextField(blank=True)
+    maxmsgsize = models.IntegerField(default=0)
+    sa_tag = models.IntegerField(default=999)
+    sa_refuse = models.IntegerField(default=999)
