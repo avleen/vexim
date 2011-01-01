@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% load domain_admins %}
 
 {% block leftbar %}
 {% include "controlpanel/siteadmin_leftbar.html" %}
@@ -24,8 +25,9 @@
     <tr>
         {% for domain in local_domains %}
         <td><a href="/siteadmin/delete/{{ domain.id }}/">
-                <img src="/media/trash.gif" alt="Delete"></a></td>
-        <td>{{ domain.domain }}</td>
+            <img src="/media/trash.gif" alt="Delete"></a>{{ domain.domain }}</td>
+        <td>{{ domain.domain|domain_admins }}</td>
+        <td><center>{{ domain.domain|domain_admins_count }}</center></td>
         {% endfor %}
     </tr>
 </table>

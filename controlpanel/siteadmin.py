@@ -9,6 +9,7 @@ from vexim.controlpanel.models import Domain
 import hashlib
 import os
 import sys
+import types
 
 
 @login_required
@@ -19,8 +20,6 @@ def index(request, domain_letter=None):
         return redirect('/accounts/login/')
 
     reply_dict = common.get_reply_dict(request)
-    local_admins = {}
-    d = Domain.objects.filter(type='local')
     reply_dict['local_domains'] = Domain.objects.filter(type='local')
     reply_dict['alias_domains'] = Domain.objects.filter(type='alias')
     reply_dict['relay_domains'] = Domain.objects.filter(type='relay')
